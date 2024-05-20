@@ -1,9 +1,9 @@
 <?php
 $db = 'hanstrip';
-$konek = new mysqli ('localhost', 'root', '', $db);
+$con = new mysqli ('localhost', 'root', '', $db);
 
-if ($konek->connect_error) {
+if ($con->connect_error) {
     die("Koneksi Error: " .
-$konek->connect_error);
+$con->connect_error);
 }
 ?>
