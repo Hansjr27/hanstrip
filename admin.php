@@ -43,7 +43,7 @@
                         echo "<td class='text-center text-light bg-dark'>" . $row['id'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['email'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['username'] . "</td>";
-                        echo "<td class='text-center text-light bg-dark'><a href='delete_user.php?id=" . $row['id'] . "' class='btn btn-danger mx-2'>Hapus</a><a href='edit_user.php?id=" . $row['id'] . "' class='btn btn-warning'>Edit</a></td>";
+                        echo "<td class='text-center text-light bg-dark'><a href='delete_user.php?id=" . $row['id'] . "' class='btn btn-danger mx-2'>Hapus</a></td>";
                         echo "</tr>";
                     }
                 ?>
