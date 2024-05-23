@@ -8,6 +8,9 @@
 <body>
     <h2>Registrasi Pengguna</h2>
     <form action="logikaregister.php" method="post">
+        <label for="username">email:</label>
+        <input type="email" name="email" required><br><br>
+
         <label for="username">Username:</label>
         <input type="text" name="username" required><br><br>
 

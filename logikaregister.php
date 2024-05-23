@@ -3,41 +3,23 @@
 include 'koneksi.php';
 
 // Ambil data dari formulir
+$email = $_POST['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// Lakukan pengecekan apakah username sudah digunakan sebelumnya
-$check_query = "SELECT * FROM user WHERE username = ?";
-$stmt = $con->prepare($check_query);
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
+$query = mysqli_query($con, "INSERT INTO user (email, username, password) VALUES ('$email', '$username', '$password')");
+$user = "SELECT * FROM user";
 
-if ($result->num_rows > 0) {
-    echo "";
-    echo"<script>
-    alert('Username sudah digunakan. Silakan gunakan username lain.');
+if ($query !== $user) {
+    echo "<script>
+    window.location.href='setelahLogin.php';
+    </script>";
+}
+else {
+    "<script>
+    alert('gagal coy silahkan coba lagi');
     window.location.href='register.php';
     </script>";
-    exit();
 }
 
-// Jika username tersedia, lakukan penyimpanan data ke database
-$insert_query = "INSERT INTO user (username, password) VALUES (?, ?)";
-$stmt = $con->prepare($insert_query);
-$stmt->bind_param("ss", $username, $password); // "ss" untuk dua string (username, password)
-
-if ($stmt->execute()) {
-    header("Location: setelahLogin.php");
-    exit();
-} else {
-    echo"<script>
-    alert('Registrasi gagal. Silakan coba lagi');
-    window.location.href='register.php';
-    </script>";
-    exit();
-}
-
-$stmt->close();
-$con->close();
 ?>

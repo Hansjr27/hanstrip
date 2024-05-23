@@ -3,16 +3,23 @@ session_start();
 
 include 'koneksi.php';
 
-$username = $_POST['username'];
+$email = $_POST['email'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM user WHERE username ='$username' AND password ='$password'";
+$user = "SELECT * FROM user WHERE email ='$email' AND password ='$password'";
+$admin = "SELECT * FROM admin WHERE email ='$email' AND password ='$password'";
 
-$result = $con->query($sql);
+$result = $con->query($user);
+$result_admin = $con->query($admin);
 
 if ($result->num_rows == 1) {
-    $_SESSION['username'] = $username;
+    $_SESSION['email'] = $email;
     header("Location: setelahLogin.php");
+    exit();
+}
+else if ($result_admin->num_rows == 1) {
+    $_SESSION['email'] = $email;
+    header("Location: admin.php");
     exit();
 }
 else {
