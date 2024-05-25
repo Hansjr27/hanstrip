@@ -1,35 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tampilan utama</title
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-	<style>
-		* {
-            padding: 0;
-            margin: 0;
-        }
-	</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<!--=================== Remixicons ====================-->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222831;
+    margin: 0;
+    padding: 0;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    background-color: #31363F;
+    display: flex;
+    width: 50rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.formulir {
+display: flex;
+justify-content: center;
+flex-direction: column;
+text-align: center;
+position: relative;
+}
+h2 {
+    color: #fff;
+    text-align: center;
+}
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 20rem;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #6A5E5E;
+    color: #fff;
+}
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #76ABAE;
+    color: #fff;
+    transition: background-color 0.3s;
+    border: 1px solid #76ABAE;
+}
+input[type="submit"]:hover {
+    background: #31363F;
+    border: 1px solid #76ABAE;
+}
+
+.to-login-or-regis {
+    font-size: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.to-login-or-regis span {
+    color: #4352D9;
+}
+.password-toggle-btn {
+    position: absolute;
+    top: 15.4rem;
+    left: 19rem;
+    cursor: pointer;
+}
+
+.ri-eye-fill {
+    color: #fff;
+}
+  </style>
 </head>
 <body>
-     
-  
-<nav class="bg-black py-4">
-    <div class="container mx-auto">
-        <a class="navbar-brand" href="https://library.livecanvas.com/sections/">
-            <img class="w-12 h-12" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="">
-        </a>
-        <div class="flex items-center justify-between">
-            <h3 class="text-white text-lg">Jadwal Pelajaran</h3>
-            <div class="flex items-center">
-                <a class="btn btn-outline-light mr-2" href="register.php">Daftar</a>
-                <a class="btn btn-light" href="login.php">Log In</a>
-            </div>
-        </div>
-    </div>
-</nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<div class="container">
+    <div class="formulir">
+    <a href="index.php"><h2>Log in</h2></a>
+    <form action="logikalogin.php" method="POST">
+        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+        <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
+        <input type="submit" value="Log in">
+        <a href="register.php" class="to-login-or-regis">Belum punya akun?<span>Daftar<span></a>
+    </form>
+    </div>
+    <div class="foto">
+        <img src="assets/img/Globalization-pana.png" alt="" width="95%">
+    </div>
+</div>
+
+<script>
+function togglePasswordVisibility() {
+     passwordField = document.getElementById("password");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+</script>
+
 </body>
 </html>
