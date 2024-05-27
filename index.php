@@ -71,8 +71,9 @@ input[type="submit"]:hover {
     text-decoration: none;
 }
 
-.to-login-or-regis span {
+.to-login-or-regis a {
     color: #4352D9;
+    text-decoration: underline;
 }
 .password-toggle-btn {
     position: absolute;
@@ -96,7 +97,7 @@ input[type="submit"]:hover {
         <input type="password" name="password" id="password" placeholder="Password" required><br><br>
         <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
         <input type="submit" value="Log in">
-        <a href="register.php" class="to-login-or-regis">Belum punya akun?<span>Daftar<span></a>
+        <span class="to-login-or-regis">Belum punya akun? <a href="register.php" >Daftar</a></span>
     </form>
     </div>
     <div class="foto">

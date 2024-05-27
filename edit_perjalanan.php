@@ -7,7 +7,7 @@ if(isset($_GET['id'])) {
     $user_id = $_GET['id'];
 
     // Query untuk mendapatkan data pengguna berdasarkan ID
-    $query = "SELECT * FROM user WHERE id = '$user_id'";
+    $query = "SELECT * FROM perjalanan WHERE id = '$user_id'";
     $result = mysqli_query($con, $query);
 
     if(mysqli_num_rows($result) == 1) {

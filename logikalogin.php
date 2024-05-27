@@ -25,7 +25,7 @@ else if ($result_admin->num_rows == 1) {
 else {
     echo"<script>
     alert('Username atau password salah!');
-    window.location.href='login.php';
+    window.location.href='index.php';
     </script>";
     exit();
 }
