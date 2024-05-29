@@ -16,21 +16,44 @@ if(isset($_GET['id'])) {
         // Tangani pengiriman formulir edit
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Ambil nilai dari formulir
-            $email = $_POST['email'];
-            $username = $_POST['username'];
+            $tempat = $_POST['tempat'];
+            $deskripsi = $_POST['deskripsi'];
+            $waktu_pergi = $_POST['waktu_pergi'];
+            $foto = $_FILES['foto']['name'];
+            $tmp_foto = $_FILES['foto']['tmp_name'];
+
+            // Cek apakah ada foto yang diunggah
+            if ($foto) {
+                $foto_dir = "";
+                $foto_name = $foto_dir . basename($foto);
+                move_uploaded_file($tmp_foto, $foto_name);
+            }
+            else {
+                $foto_dir = "assets/img/perjalanan/";
+                $foto_name = $foto_dir . basename($foto);
+                move_uploaded_file($tmp_foto, $foto_name);
+            }
 
             // Query untuk memperbarui data pengguna
-            $update_query = "UPDATE user SET email='$email', username='$username' WHERE id='$user_id'";
+            $update_query = "UPDATE perjalanan SET tempat='$tempat', deskripsi='$deskripsi', waktu_pergi='$waktu_pergi', foto='$foto_name' WHERE id='$user_id'";
             $update_result = mysqli_query($con, $update_query);
 
             if ($update_result) {
                 // Redirect pengguna ke halaman lain setelah perbaruan berhasil
-                header("Location: admin.php");
+                header("Location: setelahLogin.php");
                 exit;
             } else {
-                echo "Gagal memperbarui data pengguna.";
+                echo "Gagal memperbarui data pengguna: " . mysqli_error($con);
             }
         }
+    } else {
+        // Jika pengguna tidak ditemukan, tampilkan pesan error
+        echo "User not found.";
+    }
+} else {
+    // Jika parameter ID tidak ada dalam URL, tampilkan pesan error
+    echo "Invalid request.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,26 +67,31 @@ if(isset($_GET['id'])) {
 <body class="bg-dark">
     <div class="container mt-5">
         <h2 class="text-light mb-3">Edit User</h2>
-        <form method="post">
-            <div class="mb-3">
-                <label for="email" class="form-label text-light">Email:</label>
-                <input type="text" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>">
+        <form action="edit_perjalanan.php?id=<?php echo $user_id; ?>" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nama">Nama Tempat</label>
+                <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan nama Tempat" value="<?php echo $row['tempat']; ?>">
             </div>
-            <div class="mb-3">
-                <label for="username" class="form-label text-light">Username:</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?php echo $row['username']; ?>">
+            
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi Perjalanan:</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"><?php echo $row['deskripsi']; ?></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <div class="form-group">
+                <label for="tanggal">Tanggal pergi:</label>
+                <input type="date" class="form-control" id="lokasi" name="waktu_pergi" placeholder="Masukkan lokasi" value="<?php echo $row['waktu_pergi']; ?>">
+            </div>
+            <div class="form-group mt-lg5">
+                <label for="foto">Foto:</label>
+                <input type="file" class="form-control-file" id="foto" name="foto">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnTutupModal"
+                    data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
         </form>
     </div>
 </body>
 </html>
 
-<?php
-    } else {
-        echo "User not found.";
-    }
-} else {
-    echo "Invalid request.";
-}
-?>

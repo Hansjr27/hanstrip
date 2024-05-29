@@ -1,3 +1,7 @@
+<?php
+include 'koneksi.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,28 +93,6 @@
     width: 100%;
     transform: translateX(0);
     opacity: 1;
-}
-
-.contact-btn {
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background: linear-gradient(90deg, #76ABAE 0%, #87ABAE 100%);
-    padding: 0.6rem 2rem;
-    border: none;
-    outline: 1.5px solid transparent;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    transition: all 0.3 ease;
-}
-
-.contact-btn:hover {
-    color: #76ABAE;
-    background: #000;
-    outline: 1.5px solid #76ABAE;
 }
 
 .menu-btn {
@@ -291,6 +273,10 @@ margin-left: 0.5rem;
   font-size: 1rem;
 }
 
+.user {
+  font-size: 1.5rem;
+}
+
 .edit-hapus {
   display: flex;
   justify-content: end;
@@ -299,7 +285,6 @@ margin-left: 0.5rem;
 
 
 .footer {
-  width: 100%;
   margin-top: 3rem;
 }
   </style>
@@ -320,7 +305,8 @@ margin-left: 0.5rem;
             <a class="menu-item" id="btnBukaModal" data-bs-toggle="modal"
               data-bs-target="#exampleModal">Catatkan perjalanan</a>
           </li>
-            <a class="contact-btn" href="logikalogout.php">Log out</a>
+            
+            <a href="profil.php"><i class="ri-user-fill user"></i></a>
         </ul>
         </div>
       </nav>
@@ -350,18 +336,29 @@ margin-left: 0.5rem;
     </div>
     <div class="riwayat-cuy">
       <!-- 1 -->
+      <?php
+          $query = "SELECT * FROM perjalanan";
+            $result = mysqli_query($con, $query);
+
+$no = 1;
+while($data = mysqli_fetch_assoc($result)) {
+    ?>
       <div class="card bg-dark mt-l5" style="width:250px">
-        <img class="card-img-top" src="assets/img/bali.jpg" alt="Card image">
+        <img class="card-img-top" src="assets/img/perjalanan/<?php echo $data['foto']; ?>" alt="Card image">
         <div class="card-body">
-          <h4 class="card-title text-light">Bali</h4>
-          <p class="card-text text-light">perferendis illum totam voluptates reprehenderit labore repellat asperiores a veniam. Quas ipsum ipsa incidunt earum suscipit nobis!</p>
+          <h4 class="card-title text-light"><?php echo $data['tempat']; ?></h4>
+          <p class="card-text text-light"><?php echo $data['deskripsi']; ?></p>
           <span><i class="ri-user-fill">Fulan</i></span>
           <div class="edit-hapus">
-            <a href="#"><i class="ri-edit-line"></i></a>
-            <a href="#"><i class='ri-delete-bin-line'></i></a>
+            <a href="edit_perjalanan.php?id=<?php echo $data['id']; ?>"><i class="ri-edit-line"></i></a>
+            <a href="delete_perjalanan.php?id=<?php echo $data['id']; ?>"><i class='ri-delete-bin-line'></i></a>
           </div>
         </div>
       </div>
+      <?php
+          $no++;
+}
+?>
     </div>
     </div>
     </section>
@@ -376,33 +373,35 @@ margin-left: 0.5rem;
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                  
+                    <form action="insert_perjalanan.php" method="post" enctype="multipart/form-data">
                       <div class="form-group">
-                        <label for="nama">Nama:</label>
-                        <input type="text" class="form-control" id="nama" placeholder="Masukkan nama">
+                        <label for="nama">Nama Tempat</label>
+                        <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan nama Tempat">
                       </div>
-                      <div class="form-group">
-                        <label for="tanggal">Tanggal Perjalanan:</label>
-                        <input type="date" class="form-control" id="tanggal">
-                      </div>
-                      <div class="form-group">
-                        <label for="lokasi">Lokasi Perjalanan:</label>
-                        <input type="text" class="form-control" id="lokasi" placeholder="Masukkan lokasi">
-                      </div>
+                      
                       <div class="form-group">
                         <label for="deskripsi">Deskripsi Perjalanan:</label>
-                        <textarea class="form-control" id="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"></textarea>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"></textarea>
                       </div>
                       <div class="form-group">
+                        <label for="tanggal">Tanggal Upload</label>
+                        <input type="date" class="form-control" name="tanggal_upload" id="tanggal" value="<?php echo date('Y-m-d'); ?>">
+                      </div>
+                      <div class="form-group">
+                        <label for="tanggal">Tanggal pergi:</label>
+                        <input type="date" class="form-control" id="lokasi" name="waktu_pergi" placeholder="Masukkan lokasi">
+                      </div>
+                      <div class="form-group mt-lg5">
                         <label for="foto">Foto:</label>
-                        <input type="file" class="form-control" id="foto">
+                        <input type="file" class="form-control-file" id="foto" name="foto">
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" id="btnTutupModal"
+                              data-bs-dismiss="modal">Batal</button>
+                          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                       </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnTutupModal"
-                        data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </div>
         </div>

@@ -3,9 +3,14 @@ include "koneksi.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $query = "DELETE FROM user WHERE id = $id";
+    $query = "SELECT * FROM perjalanan WHERE id = $id";
+    $result = mysqli_query($con, $query);
+    $data = mysqli_fetch_assoc($result);
+    $foto = $data['foto'];
+    $query = "DELETE FROM perjalanan WHERE id = $id";
     if (mysqli_query($con, $query)) {
-        header("Location: setelahLogin.php"); // redirect back to the admin page
+        unlink("assets/img/perjalanan/$foto");
+        header("Location: setelahLogin.php#riwayat");
     } else {
         echo "Error deleting record: " . mysqli_error($con);
     }
