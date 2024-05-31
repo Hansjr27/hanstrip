@@ -1,5 +1,17 @@
 <?php
-include 'koneksi.php';
+session_start();
+include "koneksi.php";
+
+// Periksa apakah user_id telah diatur di sesi
+
+    if ($_SESSION["login"] !== true) {
+      echo "<script>window.location='index.php'</script>";
+      exit;
+    }
+
+    $query = "SELECT * FROM user WHERE id ='$_SESSION[id]'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_array($result);
 ?>
 
 <!DOCTYPE html>
@@ -277,12 +289,20 @@ margin-left: 0.5rem;
   font-size: 1.5rem;
 }
 
+.user-upload i {
+  font-size: 0.8rem;
+}
+
 .edit-hapus {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   gap: 0.5rem;
 }
 
+.tgl-upload {
+  font-size: 0.8rem;
+  color: grey;
+}
 
 .footer {
   margin-top: 3rem;
@@ -343,15 +363,22 @@ margin-left: 0.5rem;
 $no = 1;
 while($data = mysqli_fetch_assoc($result)) {
     ?>
-      <div class="card bg-dark mt-l5" style="width:250px">
-        <img class="card-img-top" src="assets/img/perjalanan/<?php echo $data['foto']; ?>" alt="Card image">
+      <div class="card bg-dark mt-l5" style="width:250px;">
+        <img class="card-img-top" src="assets/<?php echo $data['foto']; ?>" alt="Card image">
         <div class="card-body">
           <h4 class="card-title text-light"><?php echo $data['tempat']; ?></h4>
-          <p class="card-text text-light"><?php echo $data['deskripsi']; ?></p>
-          <span><i class="ri-user-fill">Fulan</i></span>
+          <p class="deskripsi card-text text-light"><?php echo $data['deskripsi']; ?></p>
+          <span class="text-light">waktu pergi:</span>
+          <p class="tgl-upload card-text text-light"><?php echo $data['waktu_pergi']; ?></p>
+          <p class="user-upload tgl-upload card-text text-light"><i class="ri-user-fill user"></i> <?php echo $data['user_upload']; ?></p>
           <div class="edit-hapus">
-            <a href="edit_perjalanan.php?id=<?php echo $data['id']; ?>"><i class="ri-edit-line"></i></a>
-            <a href="delete_perjalanan.php?id=<?php echo $data['id']; ?>"><i class='ri-delete-bin-line'></i></a>
+            <div class="kanan">
+              <p class="card-text text-light"><?php echo $data['tanggal_upload']; ?></p>
+            </div>
+            <div class="kiri">
+              <a href="edit_perjalanan.php?id=<?php echo $data['id']; ?>"><i class="ri-edit-line"></i></a>
+              <a href="delete_perjalanan.php?id=<?php echo $data['id']; ?>"><i class='ri-delete-bin-line'></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -387,6 +414,10 @@ while($data = mysqli_fetch_assoc($result)) {
                       <div class="form-group">
                         <label for="tanggal">Tanggal Upload</label>
                         <input type="date" class="form-control" name="tanggal_upload" id="tanggal" value="<?php echo date('Y-m-d'); ?>">
+                      </div>
+                      <div class="form-group">
+                        <label for="nama">Upload Sebagai: </label>
+                        <input type="text" class="form-control" id="user_upload" name="user_upload" value="<?= $row['username']; ?>" placeholder="Masukkan nama Tempat">
                       </div>
                       <div class="form-group">
                         <label for="tanggal">Tanggal pergi:</label>

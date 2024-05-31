@@ -1,3 +1,14 @@
+<?php
+session_start();
+include "koneksi.php";
+
+// Periksa apakah user_id telah diatur di sesi
+
+    if ($_SESSION["login"] !== true) {
+      echo "<script>window.location='index.php'</script>";
+      exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +29,12 @@
         
         .ri-delete-bin-line {
             color: red;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .ri-edit-line {
+            color: yellow;
+            font-size: 1.3rem;
+            margin-right: 1rem;
         }
 
         a {
@@ -26,6 +42,11 @@
         }
         h1 {
             color: #76ABAE;
+        }
+        .keterangan {
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
         }
     </style>
 </head>
@@ -45,6 +66,7 @@
 </nav>
 
     <!-- tabel admin coy -->
+    <p class="keterangan text-light">Keterangan: level 1 adalah user dan level 2 adalah admin</p>
     <div class="table-responsive">
         <table class="table table-striped table-dark">
             <thead>
@@ -52,6 +74,7 @@
                     <th class="text-center fw-bold text-light bg-dark">ID</th>
                     <th class="fw-bold text-light bg-dark">Email</th>
                     <th class="fw-bold text-light bg-dark">Username</th>
+                    <th class="fw-bold text-light bg-dark">Level</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +87,8 @@
                         echo "<td class='text-center text-light bg-dark'>" . $row['id'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['email'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['username'] . "</td>";
-                        echo "<td class='text-center text-light bg-dark'><a href='delete_user.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
+                        echo "<td class='text-light bg-dark'>" . $row['level'] . "</td>";
+                        echo "<td class='text-center text-light bg-dark'><a href='edit_user.php?id=" . $row['id'] . "'><i class='ri-edit-line'></i></a><a href='delete_user.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
                         echo "</tr>";
                     }
                 ?>

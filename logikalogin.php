@@ -1,32 +1,34 @@
+
+
 <?php
+
 session_start();
 
-include 'koneksi.php';
+$conn = mysqli_connect("localhost", "root", "", "hanstrip");
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$user = "SELECT * FROM user WHERE email ='$email' AND password ='$password'";
-$admin = "SELECT * FROM admin WHERE email ='$email' AND password ='$password'";
+$query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
+$result = mysqli_query($conn, $query);
 
-$result = $con->query($user);
-$result_admin = $con->query($admin);
 
-if ($result->num_rows == 1) {
-    $_SESSION['email'] = $email;
-    header("Location: setelahLogin.php");
-    exit();
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['login'] = true;
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['password'] = $row['password'];
+    $_SESSION['id'] = $row['id'];
+    $_SESSION['level'] = $row['level'];
+
+    if ($row['level'] == 1) {
+      header("Location: setelahLogin.php");
+    } elseif ($row['level'] == 2) {
+      header("Location: admin.php");
+    }
+    exit;
+} else {
+    echo '<script>alert("Username atau password salah!");window.location.href="index.php";</script>';
 }
-else if ($result_admin->num_rows == 1) {
-    $_SESSION['email'] = $email;
-    header("Location: admin.php");
-    exit();
-}
-else {
-    echo"<script>
-    alert('Username atau password salah!');
-    window.location.href='index.php';
-    </script>";
-    exit();
-}
-?>
+
+$conn->close();

@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $foto = $data['foto'];
     $query = "DELETE FROM perjalanan WHERE id = $id";
     if (mysqli_query($con, $query)) {
-        unlink("assets/img/perjalanan/$foto");
+        unlink("assets/$foto");
         header("Location: setelahLogin.php#riwayat");
     } else {
         echo "Error deleting record: " . mysqli_error($con);

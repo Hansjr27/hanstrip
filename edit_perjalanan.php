@@ -2,12 +2,12 @@
 // Masukkan file koneksi.php
 include "koneksi.php";
 
+$perjalanan_id = $_GET['id'];
 // Periksa apakah parameter ID pengguna ada dalam URL
 if(isset($_GET['id'])) {
-    $user_id = $_GET['id'];
 
     // Query untuk mendapatkan data pengguna berdasarkan ID
-    $query = "SELECT * FROM perjalanan WHERE id = '$user_id'";
+    $query = "SELECT * FROM perjalanan WHERE id = '$perjalanan_id'";
     $result = mysqli_query($con, $query);
 
     if(mysqli_num_rows($result) == 1) {
@@ -19,23 +19,23 @@ if(isset($_GET['id'])) {
             $tempat = $_POST['tempat'];
             $deskripsi = $_POST['deskripsi'];
             $waktu_pergi = $_POST['waktu_pergi'];
-            $foto = $_FILES['foto']['name'];
-            $tmp_foto = $_FILES['foto']['tmp_name'];
+            $foto_name = $_FILES['foto']['name'];
+            $foto_tmp = $_FILES['foto']['tmp_name'];
 
             // Cek apakah ada foto yang diunggah
-            if ($foto) {
-                $foto_dir = "";
-                $foto_name = $foto_dir . basename($foto);
-                move_uploaded_file($tmp_foto, $foto_name);
-            }
-            else {
-                $foto_dir = "assets/img/perjalanan/";
-                $foto_name = $foto_dir . basename($foto);
-                move_uploaded_file($tmp_foto, $foto_name);
+            if (!empty($foto_name)) {
+                move_uploaded_file($foto_tmp, "assets/$foto_name");
+            } else {
+                echo "image belum di tambah";
             }
 
             // Query untuk memperbarui data pengguna
-            $update_query = "UPDATE perjalanan SET tempat='$tempat', deskripsi='$deskripsi', waktu_pergi='$waktu_pergi', foto='$foto_name' WHERE id='$user_id'";
+            $update_query = "UPDATE perjalanan SET tempat='$tempat', deskripsi='$deskripsi', waktu_pergi='$waktu_pergi'";
+            // Jika ada foto yang diunggah, tambahkan ke query
+            if (!empty($foto_name)) {
+                $update_query .= ", foto='$foto_name'";
+            }
+            $update_query .= " WHERE id='$perjalanan_id'";
             $update_result = mysqli_query($con, $update_query);
 
             if ($update_result) {
@@ -56,6 +56,7 @@ if(isset($_GET['id'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,7 @@ if(isset($_GET['id'])) {
 <body class="bg-dark">
     <div class="container mt-5">
         <h2 class="text-light mb-3">Edit User</h2>
-        <form action="edit_perjalanan.php?id=<?php echo $user_id; ?>" method="post" enctype="multipart/form-data">
+        <form action="edit_perjalanan.php?id=<?php echo $perjalanan_id; ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nama">Nama Tempat</label>
                 <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan nama Tempat" value="<?php echo $row['tempat']; ?>">

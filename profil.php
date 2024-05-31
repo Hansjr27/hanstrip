@@ -1,3 +1,19 @@
+<?php
+session_start();
+include "koneksi.php";
+
+// Periksa apakah user_id telah diatur di sesi
+
+    if ($_SESSION["login"] !== true) {
+      echo "<script>window.location='index.php'</script>";
+      exit;
+    }
+
+    $query = "SELECT * FROM user WHERE id ='$_SESSION[id]'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_array($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,83 +46,29 @@
         <div class="card-body">
           <h5 class="card-title text-center">Nama Pengguna</h5>
           <a href="setelahLogin.php"><i class="ri-close-fill"></i></a>
-          <form id="profile-form">
+          <form id="profile-form" action="" method="post">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" readonly>
+                <input type="email" class="form-control" id="email" name="email" value="<?= $row['email']; ?>" readonly>
               </div>
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username" readonly>
+              <input type="text" class="form-control" id="username" name="username" value="<?= $row['username']; ?>" readonly>
             </div>
             <div class="form-group">
               <label for="username">password baru</label>
-              <input type="text" class="form-control" id="username" name="username" readonly>
+              <input type="text" class="form-control" id="username" name="password" readonly>
             </div>
             <div class="form-group">
               <label for="username">konfirmasi password</label>
-              <input type="text" class="form-control" id="username" name="username" readonly>
+              <input type="text" class="form-control" id="username" name="" readonly>
             </div>
             <div class="form-group text-center">
               <button type="button" class="btn btn-primary" id="edit-profile-btn">Edit Profil</button>
-              <button type="button" class="btn btn-danger" id="delete-profile-btn">Hapus Profil</button>
               <a href="logikalogout.php"><button type="button" class="btn btn-warning" id="logout-btn">Logout</button></a>
             </div>
           </form>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Edit Profil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Form edit profil disini -->
-        <form>
-          <div class="form-group">
-            <label for="editName">Nama Pengguna</label>
-            <input type="text" class="form-control" id="editName">
-          </div>
-          <div class="form-group">
-            <label for="editEmail">Email</label>
-            <input type="email" class="form-control" id="editEmail">
-          </div>
-          <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary">Simpan Perubahan</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Hapus Profil</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Apakah Anda yakin ingin menghapus profil Anda? Tindakan ini tidak dapat dibatalkan.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-danger">Hapus Profil</button>
       </div>
     </div>
   </div>
