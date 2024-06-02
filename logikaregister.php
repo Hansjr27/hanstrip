@@ -4,7 +4,7 @@ $conn = mysqli_connect("localhost", "root", "", "hanstrip");
 
 $email = $_POST['email'];
 $username = $_POST['username'];
-$password = $_POST['password']; // Diganti ke md5 agar password disimpan dalam bentuk md5
+$password = md5($_POST['password']); // Diganti ke md5 agar password disimpan dalam bentuk md5
 $level = 1; // Menentukan level default sebagai 1
 
 $query_username = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");

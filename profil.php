@@ -17,7 +17,7 @@ $row = mysqli_fetch_array($result);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
   $email = $_POST["email"];
-  $password = $_POST["password"];
+  $password = md5($_POST["password"]);
 
   // Update user data
   $query = "UPDATE user SET username = '$username', email = '$email', password = '$password' WHERE id = '$_SESSION[id]'";
@@ -81,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" class="form-control" id="email" name="email" value="<?= $row['email']; ?>">
               </div>
               <div class="form-group mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" value="<?= $row['password']; ?>">
+                <label for="password">Ubah Password</label>
+                <input type="password" class="form-control" id="password" name="password">
                 <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
               </div>
               <div class="d-flex justify-content-between">
@@ -111,6 +111,5 @@ function togglePasswordVisibility() {
 </script>
 </body>
 
-</html>
 </html>
 

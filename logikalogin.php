@@ -7,7 +7,7 @@ session_start();
 $conn = mysqli_connect("localhost", "root", "", "hanstrip");
 
 $email = $_POST['email'];
-$password = $_POST['password'];
+$password = md5($_POST['password']);
 
 $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
 $result = mysqli_query($conn, $query);
