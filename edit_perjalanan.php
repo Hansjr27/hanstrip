@@ -18,6 +18,7 @@ if(isset($_GET['id'])) {
             // Ambil nilai dari formulir
             $tempat = $_POST['tempat'];
             $deskripsi = $_POST['deskripsi'];
+            $mulai_pergi = $_POST['mulai_pergi'];
             $waktu_pergi = $_POST['waktu_pergi'];
             $foto_name = $_FILES['foto']['name'];
             $foto_tmp = $_FILES['foto']['tmp_name'];
@@ -30,7 +31,7 @@ if(isset($_GET['id'])) {
             }
 
             // Query untuk memperbarui data pengguna
-            $update_query = "UPDATE perjalanan SET tempat='$tempat', deskripsi='$deskripsi', waktu_pergi='$waktu_pergi'";
+            $update_query = "UPDATE perjalanan SET tempat='$tempat', deskripsi='$deskripsi', mulai_pergi='$mulai_pergi', waktu_pergi='$waktu_pergi'";
             // Jika ada foto yang diunggah, tambahkan ke query
             if (!empty($foto_name)) {
                 $update_query .= ", foto='$foto_name'";
@@ -62,37 +63,50 @@ if(isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Edit Perjalanan | <?php echo $row['tempat']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="bg-dark">
-    <div class="container mt-5">
-        <h2 class="text-light mb-3">Edit User</h2>
-        <form action="edit_perjalanan.php?id=<?php echo $perjalanan_id; ?>" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="nama">Nama Tempat</label>
-                <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan nama Tempat" value="<?php echo $row['tempat']; ?>">
-            </div>
-            
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi Perjalanan:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"><?php echo $row['deskripsi']; ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="tanggal">Tanggal pergi:</label>
-                <input type="date" class="form-control" id="lokasi" name="waktu_pergi" placeholder="Masukkan lokasi" value="<?php echo $row['waktu_pergi']; ?>">
-            </div>
-            <div class="form-group mt-lg5">
-                <label for="foto">Foto:</label>
-                <input type="file" class="form-control-file" id="foto" name="foto">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btnTutupModal"
-                    data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-gray-200">
+  <div class="container mx-auto mt-5 px-4 mb-5">  <h2 class="text-lg font-bold text-white mb-3">Edit Perjalanan | <?php echo $row['tempat']; ?></h2>
+    <form action="edit_perjalanan.php?id=<?php echo $perjalanan_id; ?>" method="post" enctype="multipart/form-data" class="space-y-4"> <div class="mb-3">
+        <label for="nama" class="block mb-2 text-sm font-medium text-gray-400">Nama Tempat</label>
+        <input type="text" class="form-control block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-gray-300 focus:outline-none focus:ring-blue-500 focus:ring-2" id="tempat" name="tempat" placeholder="Masukkan nama Tempat" value="<?php echo $row['tempat']; ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-400">Deskripsi Perjalanan:</label>
+        <textarea class="form-control block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-gray-300 focus:outline-none focus:ring-blue-500 focus:ring-2" id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"><?php echo $row['deskripsi']; ?></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-400">Mulai Perjalanan:</label>
+        <input type="date" class="form-control block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-gray-300 focus:outline-none focus:ring-blue-500 focus:ring-2" id="mulai_pergi" name="mulai_pergi" placeholder="Masukkan lokasi" value="<?php echo $row['mulai_pergi']; ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-400">Akhir Perjalanan:</label>
+        <input type="date" class="form-control block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-gray-300 focus:outline-none focus:ring-blue-500 focus:ring-2" id="waktu_pergi" name="waktu_pergi" placeholder="Masukkan lokasi" value="<?php echo $row['waktu_pergi']; ?>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="foto" class="block mb-2 text-sm font-medium text-gray-400">Foto:</label>
+        <input type="file" class="form-control block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-gray-300 focus:outline-none focus:ring-blue-500 focus:ring-2" id="foto" name="foto">
+      </div>
+
+      <div class="flex items-center justify-between">
+      <a href="setelahLogin.php"><button type="button" class="btn btn-outline-danger btn-sm" id="btnTutupModal"
+                    data-bs-dismiss="modal">Batal</button></a>
+                <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
+        </div>
         </form>
     </div>
 </body>
 </html>
-

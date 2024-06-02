@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Hanstrip</title>
+<title>Login Page</title>
 <!--=================== Remixicons ====================-->
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
@@ -85,6 +85,7 @@ input[type="submit"]:hover {
 .ri-eye-fill {
     color: #fff;
 }
+
   </style>
 </head>
 <body>
@@ -93,7 +94,7 @@ input[type="submit"]:hover {
     <div class="formulir">
     <a href="index.php"><h2>Log in</h2></a>
     <form action="logikalogin.php" method="POST">
-        <input type="email" name="email" placeholder="Email" required><br><br>
+        <input type="email" name="email" placeholder="Email" autocomplete="off" required><br><br>
         <input type="password" name="password" id="password" placeholder="Password" required><br><br>
         <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
         <input type="submit" value="Log in">

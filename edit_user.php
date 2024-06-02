@@ -66,7 +66,7 @@ if(isset($_GET['id'])) {
                 <label for="tanggal">Level</label>
                 <input type="number" class="form-control" id="level" name="level" placeholder="Masukkan level" value="<?php echo $row['level']; ?>" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 <a href="admin.php" class="btn btn-danger">Batal</a>
             </div>

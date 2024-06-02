@@ -96,8 +96,8 @@
     <div class="formulir">
     <a href="index.php"><h2>Registrasi</h2></a>
     <form action="logikaregister.php" method="POST">
-        <input type="email" name="email" placeholder="Email" required><br><br>
-        <input type="text" name="username" placeholder="Username" required><br><br>
+        <input type="email" name="email" placeholder="Email" autocomplete="off" required><br><br>
+        <input type="text" name="username" placeholder="Username" autocomplete="off" required><br><br>
         <input type="password" name="password" id="password" placeholder="Password" required><br><br>
         <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
         <input type="submit" value="Daftar">
