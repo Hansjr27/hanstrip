@@ -22,6 +22,8 @@ include "koneksi.php";
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | <?= $row['username']; ?></title>
+
+  <link rel="shortcut icon" href="assets/img/favicon-hanstrip.png" type="image/x-icon">
   <!--=================== Remixicons ====================-->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
@@ -389,6 +391,35 @@ margin-left: 0.5rem;
 }
 }
 
+@media (max-width: 769px) {
+    
+  #home,
+.home-left,
+.home-left p,
+.riwayat-cuy,
+.pencarian,
+#riwayat {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.riwayat-cuy {
+  gap: 2rem;
+}
+.home-left h2 {
+  font-size: 2rem;
+}
+.home-deskripsi p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+.home-right img {
+  width: 50rem;
+}
+#riwayat h2 {
+  margin-left: 2rem;
+}
+}
+
   </style>
 </head>
 <body>
@@ -495,30 +526,6 @@ margin-left: 0.5rem;
 
     </div>
     </div>
-    
-
-<!-- pagination -->
-<div class="flex flex-col items-center mb-4">
-  <!-- Help text -->
-  <span class="text-sm text-gray-700 dark:text-gray-400">
-      Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
-  </span>
-  <div class="inline-flex mt-2 xs:mt-0">
-    <!-- Buttons -->
-    <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
-        </svg>
-        Prev
-    </button>
-    <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        Next
-        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-      </svg>
-    </button>
-  </div>
-</div>
     </section>
 
     <!-- Modal -->
@@ -535,7 +542,7 @@ margin-left: 0.5rem;
                   <form action="insert_perjalanan.php" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="tempat" class="form-label">Nama Tempat</label>
-                  <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan nama Tempat">
+                  <input type="text" class="form-control" id="tempat" name="tempat" autocomplete="off" placeholder="Masukkan nama Tempat">
                 </div>
                                     
                 <div class="mb-3">
@@ -550,7 +557,7 @@ margin-left: 0.5rem;
                 
                 <div class="mb-3">
                   <label for="user_upload" class="form-label">Upload Sebagai: </label>
-                  <input type="text" class="form-control" id="user_upload" name="user_upload" value="<?= $row['username']; ?>" placeholder="Masukkan nama Tempat">
+                  <input type="text" class="form-control" id="user_upload" name="user_upload" autocomplete="off" value="<?= $row['username']; ?>" placeholder="Masukkan nama Tempat">
                 </div>
                 
                 <div class="mb-3">
