@@ -85,6 +85,41 @@
     .ri-eye-fill {
     color: #fff;
 }
+
+@media (max-width: 425px) {
+    .container {
+        width: 30rem;
+        padding: 20px;
+    }
+    
+    img {
+        display: none;
+    }
+    .password-toggle-btn i {
+        position: absolute;
+        bottom: 2rem;
+    }
+    
+}
+
+@media (max-width: 769px) {
+    
+    .container {
+        justify-content: center;
+        width: 40rem; 
+        align-items: center;
+        gap: 2rem;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+        width: 18rem;
+    }
+
+    .ri-eye-fill {
+        position: absolute;
+        bottom: 2rem;
+        right: 0.1rem;
+    }
+}
     </style>
 </head>
 <body>

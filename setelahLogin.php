@@ -324,7 +324,70 @@ margin-left: 0.5rem;
   margin-top: 3rem;
 }
 
+@media (max-width: 425px) {
 
+.nav-content h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-left: 2rem;
+}
+
+.nav-content ul li {
+    display: none;
+}
+
+.nav-content li {
+    margin: 0 1.5rem;
+}
+#home,
+.home-left,
+.home-left p,
+.riwayat-cuy,
+.pencarian {
+  margin-left: 0rem;
+  margin-right: 0rem;
+}
+
+.home-deskripsi {
+  display: flex;
+  justify-content: center;
+}
+
+#btnBukaModal {
+  justify-content: center;
+}
+
+#home {
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+.home-left {
+  justify-content: center;
+}
+.home-right {
+    display: flex;
+    justify-content: center;
+}
+.riwayat-cuy {
+  justify-content: center;
+}
+.pencarian {
+  width: 80%;
+}
+.form-searching {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.copyright {
+  margin-top: 0.8rem;
+}
+.btn-home {
+  display: flex;
+  justify-content: center;
+}
+}
 
   </style>
 </head>
@@ -354,11 +417,12 @@ margin-left: 0.5rem;
       <section id="home">
         <div class="home-left">
           <h2>Welcome to Hanstrip</h2>
-          <p>Catatkan perjalanan liburan anda di hanstrip</p>
-          <button type="button" class="btn btn-primary" id="btnBukaModal" data-bs-toggle="modal"
+          <div class="home-deskripsi"><p>Catatkan perjalanan liburan anda di hanstrip</p></div>
+          <div class="btn-home"><button type="button" class="btn btn-primary" id="btnBukaModal" data-bs-toggle="modal"
               data-bs-target="#exampleModal">
               Get Started
          </button>
+         </div>
         </div>
         <div class="home-right">
           <img src="assets/img/Traveling-rafiki.png" alt="">
@@ -369,7 +433,7 @@ margin-left: 0.5rem;
       <div class="riwayat">
       <h2>Riwayat perjalanan</h2>
       <form action="" method="post">
-        <div class="search-form">
+        <div class="search-form form-searching">
           <div class="pencarian">
             <i class="ri-search-line"></i>
             <input type="search" name="keyword" id="search-box" placeholder="search here..." autocomplete="off" onkeyup="search()">
@@ -431,6 +495,30 @@ margin-left: 0.5rem;
 
     </div>
     </div>
+    
+
+<!-- pagination -->
+<div class="flex flex-col items-center mb-4">
+  <!-- Help text -->
+  <span class="text-sm text-gray-700 dark:text-gray-400">
+      Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
+  </span>
+  <div class="inline-flex mt-2 xs:mt-0">
+    <!-- Buttons -->
+    <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg>
+        Prev
+    </button>
+    <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        Next
+        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+      </svg>
+    </button>
+  </div>
+</div>
     </section>
 
     <!-- Modal -->
@@ -490,14 +578,14 @@ margin-left: 0.5rem;
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap justify-between items-center">
       <div class="text-sm">
-        <ul class="flex items-center">
+        <ul class="flex items-center ul-footer">
           <li class="mr-4"><a href="#home" class="hover:underline cursor-pointer">Home</a></li>
           <li class="mr-4"><a href="#riwayat" class="hover:underline cursor-pointer">Riwayat Perjalanan</a></li>
           <li class="mr-4"><a id="btnBukaModal" data-bs-toggle="modal"
               data-bs-target="#exampleModal" class="hover:underline cursor-pointer">Catatkan Perjalanan</a></li>
         </ul>
       </div>
-      <div class="text-sm">
+      <div class="text-sm copyright">
         &copy; 2024 Hanstrip, Inc. All rights reserved.
       </div>
     </div>

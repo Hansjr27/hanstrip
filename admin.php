@@ -19,7 +19,7 @@ include "koneksi.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | <?= $row['username']; ?></title>
+    <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!--=================== Remixicons ====================-->
@@ -53,19 +53,36 @@ include "koneksi.php";
             bottom: 0;
             left: 1rem;
         }
+
+       
+
+@media (max-width: 425px) {
+    .id {
+        display: none;
+    }
+    .logout {
+        position: absolute;
+        top: 0;
+    }
+    h1 {
+        color: #76ABAE;
+        font-size: 1.5rem;
+    }
+    .logout {
+        position: absolute;
+    }
+}
     </style>
 </head>
 <body class="bg-dark">
 <nav class="navbar navbar-expand-lg navbar-light py-4">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="https://library.livecanvas.com/sections/">
 			<h1>Hanstrip</h1>
-		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav_lc" aria-controls="nav_lc" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="nav_lc">
-			<div class="ms-lg-auto"><a class="btn btn-outline-primary me-2" href="logikalogout.php">Logout</a></div>
+			<div class="ms-lg-auto logout"><a class="btn btn-outline-primary me-2" href="logikalogout.php">Logout</a></div>
 		</div>
 	</div>
 </nav>
@@ -76,7 +93,7 @@ include "koneksi.php";
         <table class="table table-striped table-dark">
             <thead>
                 <tr>
-                    <th class="text-center fw-bold text-light bg-dark">ID</th>
+                    <th class="text-center id fw-bold text-light bg-dark">ID</th>
                     <th class="fw-bold text-light bg-dark">Email</th>
                     <th class="fw-bold text-light bg-dark">Username</th>
                     <th class="fw-bold text-light bg-dark">Level</th>
@@ -89,7 +106,7 @@ include "koneksi.php";
                     $result = mysqli_query($con, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td class='text-center text-light bg-dark'>" . $row['id'] . "</td>";
+                        echo "<td class='text-center id text-light bg-dark'>" . $row['id'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['email'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['username'] . "</td>";
                         echo "<td class='text-light bg-dark'>" . $row['level'] . "</td>";
