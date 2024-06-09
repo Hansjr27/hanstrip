@@ -23,6 +23,8 @@ include "koneksi.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | <?= $row['username']; ?></title>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jQuery.min.js"></script>
+
   <link rel="shortcut icon" href="assets/img/favicon-hanstrip.png" type="image/x-icon">
   <!--=================== Remixicons ====================-->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -391,6 +393,89 @@ margin-left: 0.5rem;
 }
 }
 
+.image-upload-wrap {
+  margin-top: 10px;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap {
+  background-color: #fff;
+  border: 2px dashed #76ABAE;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.image-dropping p,
+.image-upload-wrap:hover p {
+  display: none;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #212121;
+  font-size: 0.8rem;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #212121;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  color: #fff;
+  background: #ff4b5a;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  transition: all .2s ease;
+  outline: none;
+  font-weight: 500;
+}
+
+.remove-image:hover {
+  cursor: pointer;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.active {
+  background-color: #f4f4f4;
+}
+
+input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+
+
 @media (max-width: 769px) {
     
   #home,
@@ -540,34 +625,48 @@ margin-left: 0.5rem;
                 <div class="modal-body">
                   
                   <form action="insert_perjalanan.php" method="post" enctype="multipart/form-data">
+                    <!-- nama tempat -->
                 <div class="mb-3">
                   <label for="tempat" class="form-label">Nama Tempat</label>
                   <input type="text" class="form-control" id="tempat" name="tempat" autocomplete="off" placeholder="Masukkan nama Tempat">
                 </div>
-                                    
+                <!-- deskripsi -->
                 <div class="mb-3">
                   <label for="deskripsi" class="form-label">Deskripsi Perjalanan:</label>
                   <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsikan perjalanan Anda"></textarea>
                 </div>
-                
+                <!-- mulai perjalanan -->
                 <div class="mb-3">
                   <label for="tanggal" class="form-label">Mulai Perjalanan</label>
                   <input type="date" class="form-control" name="mulai_pergi" id="tanggal" >
                 </div>
-                
+                <!-- upload sebagai -->
                 <div class="mb-3">
                   <label for="user_upload" class="form-label">Upload Sebagai: </label>
                   <input type="text" class="form-control" id="user_upload" name="user_upload" autocomplete="off" value="<?= $row['username']; ?>" placeholder="Masukkan nama Tempat">
                 </div>
-                
+                <!-- perjalanan akhir -->
                 <div class="mb-3">
                   <label for="waktu_pergi" class="form-label">Akhir Perjalanan:</label>
                   <input type="date" class="form-control" id="waktu_pergi" name="waktu_pergi" placeholder="Masukkan tanggal pergi">
                 </div>
-                
+                <!-- foto -->
                 <div class="mb-3">
-                  <label for="foto" class="form-label">Foto:</label>
-                  <input type="file" class="form-control" id="foto" name="foto">
+                <label for="foto" class="form-label">Foto:</label>
+                <div class="image-upload-wrap">
+                  <input type="file" class="file-upload-input" id="foto" name="foto" onchange="readURL(this);" accept="image/*">
+                  <div class="drag-text">
+                    <h3>Drag and drop file or select add image</h3>
+                  </div>
+                  <div class="file-upload-content">
+                    <img class="file-upload-img" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <button type="button" onclick="removeUpload()" class="remove-image">Remove
+                        <span class="image-title">Uploaded Image</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 </div>
                 
                 <div class="modal-footer">
@@ -627,7 +726,67 @@ margin-left: 0.5rem;
             hilangkanTombolTutupModal();
         });
 
-        
+      const dropArea = document.querySelector(".image-upload-wrap");
+    const input = dropArea.querySelector("input");
+
+    input.addEventListener("change", handleFileChange);
+    dropArea.addEventListener("dragover", handleDragOver);
+    dropArea.addEventListener("dragleave", handleDragLeave);
+    dropArea.addEventListener("drop", handleFileDrop);
+
+    function handleFileChange(event) {
+      const file = event.target.files[0];
+      if (isValidImageFile(file)) {
+        displayImage(file);
+      } else {
+        alert("This is not an Image File!");
+      }
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+      dropArea.classList.add("active");
+    }
+
+    function handleDragLeave() {
+      dropArea.classList.remove("active");
+    }
+
+    function handleFileDrop(event) {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      if (isValidImageFile(file)) {
+        displayImage(file);
+        input.files = event.dataTransfer.files;
+      } else {
+        alert("This is not an Image File!");
+      }
+    }
+
+    function isValidImageFile(file) {
+      const validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+      return validExtensions.includes(file.type);
+    }
+
+    function displayImage(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imgTag = `<img src="${reader.result}" alt="">`;
+        dropArea.querySelector(".file-upload-img").src = reader.result;
+        dropArea.querySelector(".file-upload-content").style.display = "block";
+        dropArea.querySelector(".file-upload-input").style.display = "none";
+        dropArea.querySelector(".drag-text").style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeUpload() {
+      dropArea.querySelector(".file-upload-input").value = "";
+      input.value = "";
+      dropArea.querySelector(".file-upload-content").style.display = "none";
+      dropArea.querySelector(".drag-text").style.display = "block";
+      dropArea.querySelector(".file-upload-input").style.display = "block";
+    }
     </script>
 </body>
 </html>
