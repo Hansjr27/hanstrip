@@ -396,6 +396,9 @@ margin-left: 0.5rem;
 .image-upload-wrap {
   margin-top: 10px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-dropping,
@@ -472,6 +475,22 @@ input[type="file"] {
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+
+@media (max-width: 425px) {
+  .image-upload-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .file-upload-image {
+    max-height: 150px;
+    max-width: 150px;
+  }
+
+  .remove-image {
+    margin-top: 1rem;
+  }
 }
 
 
