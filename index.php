@@ -411,6 +411,14 @@ margin-left: 0.5rem;
     background-color: transparent;
 }
 
+.deskripsi-pendek {
+        display: block;
+        }
+
+        .deskripsi-lengkap {
+            display: none;
+        }
+
   </style>
 </head>
 <body>
@@ -437,10 +445,9 @@ margin-left: 0.5rem;
         <div class="home-left">
           <h2>Welcome to Hanstrip</h2>
           <div class="home-deskripsi"><p>Catatkan perjalanan liburan anda di hanstrip</p></div>
-          <div class="btn-home"><button type="button" class="btn btn-primary" id="btnBukaModal" data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+          <div class="btn-home"><a href="login.php"><button type="button" class="btn btn-primary">
               Get Started
-         </button>
+         </button></a>
          </div>
         </div>
         <div class="home-right">
@@ -480,13 +487,19 @@ margin-left: 0.5rem;
         $no = 1;
         while ($data = mysqli_fetch_assoc($result)) { ?>
             <div class="card max-w-xs rounded overflow-hidden shadow-lg bg-gray-800 mb-5 ">
-              <img class="w-full" src="assets/<?php echo $data['foto']; ?>" alt="Sunset in the mountains">
+              <img class="h-48 object-cover" src="assets/<?php echo $data['foto']; ?>" alt="Sunset in the mountains">
               <div class="px-6 py-4">
                 <div class="font-bold text-white text-xl mb-2"><?php echo $data['tempat']; ?></div>
-                <p class="text-gray-200 text-base"><?php echo $data['deskripsi']; ?></p>
+                <p class="text-gray-200 text-base">
+                    <span class="deskripsi-lengkap"><?php echo $data['deskripsi']; ?></span>
+                    <span class="deskripsi-pendek"><?php echo substr($data['deskripsi'], 0, 100); ?>...</span>
+                    <button onclick="toggleDescription(this)" class="text-blue-500 hover:text-blue-700 focus:outline-none">
+                        Lihat Selengkapnya
+                    </button>
+                </p>
               </div>
               <div class="card-identitas">
-              <div class="px-6 pt-4 pb-2">
+              <div class="px-6 pt-4 pb-4">
                 <div class="user-card inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mb-2">
                 <i class="ri-user-fill"></i> <?php echo $data['user_upload']; ?>
                 </div>
@@ -527,7 +540,22 @@ margin-left: 0.5rem;
 </footer>
 
  
- 
+      <script>
+        function toggleDescription(button) {
+        let description = button.parentNode.querySelector('.deskripsi-lengkap');
+        let shortDescription = button.parentNode.querySelector('.deskripsi-pendek');
+
+        if (description.style.display === "none") {
+            description.style.display = "block";
+            shortDescription.style.display = "none";
+            button.textContent = "Sembunyikan";
+        } else {
+            description.style.display = "none";
+            shortDescription.style.display = "block";
+            button.textContent = "Lihat Selengkapnya";
+        }
+    }
+      </script>
   
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

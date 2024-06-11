@@ -41,7 +41,7 @@ if(isset($_GET['id'])) {
 
             if ($update_result) {
                 // Redirect pengguna ke halaman lain setelah perbaruan berhasil
-                header("Location: setelahLogin.php");
+                header("Location: history_perjalanan.php");
                 exit;
             } else {
                 echo "Gagal memperbarui data pengguna: " . mysqli_error($con);
@@ -103,10 +103,9 @@ if(isset($_GET['id'])) {
       </div>
 
       <div class="flex items-center justify-between">
-      <a href="profil.php"><button type="button" class="btn btn-outline-danger btn-sm" id="btnTutupModal"
-                    data-bs-dismiss="modal">Batal</button></a>
-                <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
-        </div>
+        <a href="history_perjalanan.php"><button type="button" class="btn btn-outline-danger btn-sm">Batal</button></a>
+        <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
+      </div>
         </form>
     </div>
 </body>

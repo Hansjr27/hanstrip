@@ -84,9 +84,19 @@ include "koneksi.php";
 	</div>
 </nav>
 
+    
     <!-- tabel admin coy -->
     <p class="keterangan text-light">Keterangan: level 1 adalah user dan level 2 adalah admin</p>
-    <div class="table-responsive">
+    <!-- pagination -->
+    <?php
+    $query = "SELECT * FROM user";
+    $result = mysqli_query($con, $query);
+    $total_records = mysqli_num_rows($result);
+    $total_pages = ceil($total_records / 6);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    ?>
+
+    <div class="table-responsive  mb-5">
         <table class="table table-striped table-dark">
             <thead>
                 <tr>
@@ -98,25 +108,97 @@ include "koneksi.php";
             </thead>
             <tbody>
                 <?php
-                    include "koneksi.php";
-                    $query = "SELECT * FROM user";
-                    $result = mysqli_query($con, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td class='text-center id text-light bg-dark'>" . $row['id'] . "</td>";
-                        echo "<td class='text-light bg-dark'>" . $row['email'] . "</td>";
-                        echo "<td class='text-light bg-dark'>" . $row['username'] . "</td>";
-                        echo "<td class='text-light bg-dark'>" . $row['level'] . "</td>";
-                        echo "<td class='text-center text-light bg-dark'><a href='edit_user.php?id=" . $row['id'] . "'><i class='ri-edit-line'></i></a><a href='delete_user.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
-                        echo "</tr>";
-                    }
+                $limit = 6;
+                $offset = ($current_page - 1) * $limit;
+                $query = "SELECT * FROM user LIMIT $offset, $limit";
+                $result = mysqli_query($con, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td class='text-center id text-light bg-dark'>" . $row['id'] . "</td>";
+                    echo "<td class='text-light bg-dark'>" . $row['email'] . "</td>";
+                    echo "<td class='text-light bg-dark'>" . $row['username'] . "</td>";
+                    echo "<td class='text-light bg-dark'>" . $row['level'] . "</td>";
+                    echo "<td class='text-center text-light bg-dark'><a href='delete_user.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
+                    echo "</tr>";
+                }
                 ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?php if ($current_page == 1) echo 'disabled'; ?>">
+                    <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
+                </li>
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <li class="page-item <?php if ($current_page == $i) echo 'active'; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+                <li class="page-item <?php if ($current_page == $total_pages) echo 'disabled'; ?>">
+                    <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- perjalanan -->
+    <?php
+    $query = "SELECT * FROM perjalanan";
+    $result = mysqli_query($con, $query);
+    $total_records = mysqli_num_rows($result);
+    $total_pages = ceil($total_records / 6);
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    ?>
+
+    <div class="table-responsive mt-5">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center id fw-bold text-light bg-dark">ID</th>
+                    <th class="fw-bold text-light bg-dark">user upload</th>
+                    <th class="fw-bold text-light bg-dark">foto</th>
+                    <th class="fw-bold text-light bg-dark">Nama tempat</th>
+                    <th class="fw-bold text-light bg-dark">deskripsi</th>
+                    <th class="fw-bold text-light bg-dark">pemberangkatan</th>
+                    <th class="fw-bold text-center text-light bg-dark">aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $limit = 6;
+                $offset = ($current_page - 1) * $limit;
+                $query = "SELECT * FROM perjalanan LIMIT $offset, $limit";
+                $result = mysqli_query($con, $query);
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                        echo "<td class='text-center id'>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['user_upload'] . "</td>";
+                        echo "<td><img width='50rem' src='assets/" . htmlspecialchars($row['foto']) . "' alt='' class='img-fluid'></td>";
+                        echo "<td>" . $row['tempat'] . "</td>";
+                        echo "<td><div class='text-truncate' style='max-width: 20rem;'>" . $row['deskripsi'] . "</div></td>";
+                        echo "<td>" . $row['mulai_pergi'] . " - " . $row['waktu_pergi'] ."</td>";
+                        echo "<td class='text-center'><a href='edit_perjalanan.php?id=" . $row['id'] . "'><i class='ri-edit-line'></i></a><a href='delete_perjalanan.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
+                        echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?php if ($current_page == 1) echo 'disabled'; ?>">
+                    <a class="page-link" href="?page=<?php echo $current_page - 1; ?>">Previous</a>
+                </li>
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <li class="page-item <?php if ($current_page == $i) echo 'active'; ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+                <li class="page-item <?php if ($current_page == $total_pages) echo 'disabled'; ?>">
+                    <a class="page-link" href="?page=<?php echo $current_page + 1; ?>">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
 </body>
 </html>
-
-
-

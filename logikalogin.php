@@ -1,16 +1,14 @@
-
-
 <?php
 
 session_start();
 
-$conn = mysqli_connect("localhost", "root", "", "hanstrip");
+include "koneksi.php";
 
 $email = $_POST['email'];
 $password = md5($_POST['password']);
 
 $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($con, $query);
 
 
 if (mysqli_num_rows($result) > 0) {
@@ -31,4 +29,4 @@ if (mysqli_num_rows($result) > 0) {
     echo '<script>alert("Email atau password salah!");window.location.href="login.php";</script>';
 }
 
-$conn->close();
+$con->close();

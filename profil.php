@@ -28,131 +28,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil <?= $row['username']; ?></title>
-  <link rel="shortcut icon" href="assets/img/favicon-hanstrip.png" type="image/x-icon">
-  <style>
-    .body {
-      background-color: #222831;
-    }
-    .ri-close-fill {
-      color: #000;
-      font-size: 2rem;
-      position: absolute;
-      top: 0;
-      right: 1rem;
-    }
-
-    .password-toggle-btn {
-      position: absolute;
-    top: 23.9rem;
-    right: 2rem;
-    cursor: pointer;
-    }
-    .ri-delete-bin-line {
-            color: red;
-            font-size: 1.3rem;
-        }
-        .ri-edit-line {
-            color: yellow;
-            font-size: 1.3rem;
-            margin-right: 1rem;
-        }
-  </style>
-  <!--=================== Remixicons ====================-->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil <?= $row['username']; ?></title>
+    <link rel="shortcut icon" href="assets/img/favicon-hanstrip.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      .bg-satu {
+        background-color: #31363F;
+      }
+      .bg-dua {
+        background-color: #222831;
+      }
+      .text-satu {
+        color: #76ABAE;
+      }
+      .bg-input {
+        background-color: #6A5E5E;
+      }
+    </style>
 </head>
 
-<body class="body">
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="bg-satu text-gray-100 w-64 flex-shrink-0">
+            <div class="p-4">
+                <h1 class="text-2xl font-semibold text-satu">
+                    <i class="ri-apps-2-line"></i>
+                    Hanstrip
+                </h1>
+            </div>
+            <nav>
+                <ul class="p-2">
+                    <li><a href="setelahLogin.php" class="block py-2"><i class="ri-home-4-line"></i> Beranda</a></li>
+                    <li><a href="profil.php" class="block py-2 text-satu"><i class="ri-user-fill"></i> Profil</a></li>
+                    <li><a href="history_perjalanan.php" class="block py-2"><i class="ri-history-line"></i> History perjalanan</a></li>
+                    <li><a href="logikalogout.php" class="block py-2"><i class="ri-logout-circle-r-line"></i> Keluar</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title text-center">Profil</h5>
-            <a href="setelahLogin.php"><i class="ri-close-fill float-end text-secondary"></i></a>
-            <img src="assets/img/user.png" alt="user" class="img-fluid mx-auto d-block mb-3" style="width: 100px; height: 100px; border-radius: 50%;">
-            <form action="" method="POST">
-              <div class="form-group mb-3">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?= $row['username']; ?>">
-              </div>
-              <div class="form-group mb-3">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?= $row['email']; ?>">
-              </div>
-              <div class="form-group mb-3">
-                <label for="password">Ubah Password</label>
-                <input type="password" class="form-control" id="password" name="password">
-                <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary mb-3">Edit Profil</button>
-                <div>
-                  <a href="logikalogout.php" class="btn btn-warning">Logout</a>
+        <!-- Main Content -->
+        <div class="bg-dua flex-1 min-h-screen">
+            <header class="bg-gray-800 shadow">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                    <h1 class="text-lg font-semibold text-white">Edit Profil | <?= $row['username']; ?></h1>
                 </div>
-              </div>
-            </form>
-          </div>
+            </header>
+
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="bg-dua shadow-lg p-4 rounded-lg">
+                    <form action="" method="POST">
+                        <div class="mb-4">
+                            <label for="username" class="text-white block mb-2 font-medium">Username</label>
+                            <input type="text" class="bg-input w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" id="username" name="username" value="<?= $row['username']; ?>">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="text-white block mb-2 font-medium">Email</label>
+                            <input type="email" class="bg-input w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" id="email" name="email" value="<?= $row['email']; ?>">
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="text-white block mb-2 font-medium">Ubah Password</label>
+                            <div class="relative">
+                                <input type="password" class="bg-input w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" id="password" name="password">
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">Edit Profil</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+
         </div>
-      </div>
     </div>
-  </div>
-
-    <!-- tabel admin coy -->
-    <div class="table-responsive mt-5">
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th class="text-center id fw-bold text-light bg-dark">ID</th>
-                    <th class="fw-bold text-light bg-dark">user upload</th>
-                    <th class="fw-bold text-light bg-dark">foto</th>
-                    <th class="fw-bold text-light bg-dark">Nama tempat</th>
-                    <th class="fw-bold text-light bg-dark">deskripsi</th>
-                    <th class="fw-bold text-light bg-dark">pemberangkatan</th>
-                    <th class="fw-bold text-center text-light bg-dark">aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                    $query = "SELECT * FROM perjalanan WHERE user_upload = '$row[username]'";
-                    $result = mysqli_query($con, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        echo "<td class='text-center id'>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['user_upload'] . "</td>";
-                        echo "<td><img width='50rem' src='assets/" . htmlspecialchars($row['foto']) . "' alt='' class='img-fluid'></td>";
-                        echo "<td>" . $row['tempat'] . "</td>";
-                        echo "<td><div class='text-truncate' style='max-width: 20rem;'>" . $row['deskripsi'] . "</div></td>";
-                        echo "<td>" . $row['mulai_pergi'] . " - " . $row['waktu_pergi'] ."</td>";
-                        echo "<td class='text-center'><a href='edit_perjalanan.php?id=" . $row['id'] . "'><i class='ri-edit-line'></i></a><a href='delete_perjalanan.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
-                        echo "</tr>";
-                    }
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-  <script>
-function togglePasswordVisibility() {
-     passwordField = document.getElementById("password");
-    if (passwordField.type === "password") {
-        passwordField.type = "text";
-    } else {
-        passwordField.type = "password";
-    }
-}
-</script>
 </body>
 
 </html>
-

@@ -10,7 +10,7 @@ if (isset($_GET['id'])) {
     $query = "DELETE FROM perjalanan WHERE id = $id";
     if (mysqli_query($con, $query)) {
         unlink("assets/$foto");
-        header("Location: history_perjalanan.php");
+        header("Location: admin.php");
     } else {
         echo "Error deleting record: " . mysqli_error($con);
     }
