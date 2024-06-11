@@ -138,7 +138,7 @@
         <input type="password" name="password" id="password" placeholder="Password" required><br><br>
         <span class="password-toggle-btn" onclick="togglePasswordVisibility()"><i class="ri-eye-fill"></i></span>
         <input type="submit" value="Daftar">
-        <span  class="to-login-or-regis">Sudah punya akun? <a href="index.php">Login</a></span>
+        <span  class="to-login-or-regis">Sudah punya akun? <a href="login.php">Login</a></span>
     </form>
     </div>
     </div>

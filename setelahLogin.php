@@ -610,14 +610,6 @@ input[type="file"] {
                   <?php echo $data['waktu_pergi']; ?> - <?php echo $data['mulai_pergi']; ?>
                 </div>
               </div>
-              <div class="px-6 pb-2">
-                <a href="edit_perjalanan.php?id=<?php echo $data['id']; ?>" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                  <i class="ri-edit-line text-yellow-600"></i>
-                </a>
-                <a href="delete_perjalanan.php?id=<?php echo $data['id']; ?>" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                  <i class='ri-delete-bin-line'></i>
-                </a>
-              </div>
               </div>
             </div>
       <?php
@@ -809,5 +801,3 @@ input[type="file"] {
     </script>
 </body>
 </html>
-
-

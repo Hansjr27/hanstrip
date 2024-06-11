@@ -55,6 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     right: 2rem;
     cursor: pointer;
     }
+    .ri-delete-bin-line {
+            color: red;
+            font-size: 1.3rem;
+        }
+        .ri-edit-line {
+            color: yellow;
+            font-size: 1.3rem;
+            margin-right: 1rem;
+        }
   </style>
   <!--=================== Remixicons ====================-->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -99,6 +108,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
+    <!-- tabel admin coy -->
+    <div class="table-responsive mt-5">
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th class="text-center id fw-bold text-light bg-dark">ID</th>
+                    <th class="fw-bold text-light bg-dark">user upload</th>
+                    <th class="fw-bold text-light bg-dark">foto</th>
+                    <th class="fw-bold text-light bg-dark">Nama tempat</th>
+                    <th class="fw-bold text-light bg-dark">deskripsi</th>
+                    <th class="fw-bold text-light bg-dark">pemberangkatan</th>
+                    <th class="fw-bold text-center text-light bg-dark">aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                    $query = "SELECT * FROM perjalanan WHERE user_upload = '$row[username]'";
+                    $result = mysqli_query($con, $query);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td class='text-center id'>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['user_upload'] . "</td>";
+                        echo "<td><img width='50rem' src='assets/" . htmlspecialchars($row['foto']) . "' alt='' class='img-fluid'></td>";
+                        echo "<td>" . $row['tempat'] . "</td>";
+                        echo "<td><div class='text-truncate' style='max-width: 20rem;'>" . $row['deskripsi'] . "</div></td>";
+                        echo "<td>" . $row['mulai_pergi'] . " - " . $row['waktu_pergi'] ."</td>";
+                        echo "<td class='text-center'><a href='edit_perjalanan.php?id=" . $row['id'] . "'><i class='ri-edit-line'></i></a><a href='delete_perjalanan.php?id=" . $row['id'] . "'><i class='ri-delete-bin-line'></i></a></td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
   <script>
 function togglePasswordVisibility() {

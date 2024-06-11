@@ -103,7 +103,7 @@ if(isset($_GET['id'])) {
       </div>
 
       <div class="flex items-center justify-between">
-      <a href="setelahLogin.php"><button type="button" class="btn btn-outline-danger btn-sm" id="btnTutupModal"
+      <a href="profil.php"><button type="button" class="btn btn-outline-danger btn-sm" id="btnTutupModal"
                     data-bs-dismiss="modal">Batal</button></a>
                 <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
         </div>

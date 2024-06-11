@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
     }
     exit;
 } else {
-    echo '<script>alert("Username atau password salah!");window.location.href="index.php";</script>';
+    echo '<script>alert("Email atau password salah!");window.location.href="login.php";</script>';
 }
 
 $conn->close();

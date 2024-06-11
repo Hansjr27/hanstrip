@@ -11,15 +11,15 @@ $query_username = mysqli_query($conn, "SELECT * FROM user WHERE username = '$use
 $query_email = mysqli_query($conn, "SELECT * FROM user WHERE email = '$email'");
 
 if (mysqli_num_rows($query_username) > 0) {
-    echo '<script>alert("Username sudah ada");window.location="registar.php";</script>';
+    echo '<script>alert("Username sudah ada");window.location="register.php";</script>';
 }
 else if (mysqli_num_rows($query_email) > 0) {
-    echo '<script>alert("Email sudah ada");window.location="registar.php";</script>';
+    echo '<script>alert("Email sudah ada");window.location="register.php";</script>';
 }
 else {
     $query = mysqli_query($conn, "INSERT INTO user (email, username, password, level) VALUES ('$email', '$username', '$password', '$level')");
     if ($query) {
-        header("location: index.php");
+        header("location: login.php");
     } else {
         echo "Gagal";
     }

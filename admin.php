@@ -49,11 +49,7 @@ include "koneksi.php";
         h1 {
             color: #76ABAE;
         }
-        .keterangan {
-            position: absolute;
-            bottom: 0;
-            left: 1rem;
-        }
+        
 
        
 
